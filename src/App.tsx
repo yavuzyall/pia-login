@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import PageTitle from "./components/PageTitle/PageTitle";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
+
+  const [pageTitle, setPageTitle] = React.useState("Title from state");
+  console.log(pageTitle);
+  let title = "Title from variable";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <LoginPage/>
+    </>
   );
 }
 
