@@ -1,19 +1,30 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
-import PageTitle from "./components/PageTitle/PageTitle";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import { AuthProvider, useAuth } from "./auth/AuthContext";
+import PrivateRoute from "./auth/PrivateRoute";
 
 function App() {
-
-  const [pageTitle, setPageTitle] = React.useState("Title from state");
-  console.log(pageTitle);
-  let title = "Title from variable";
-
+  
   return (
-    <>
-      <LoginPage/>
-    </>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
