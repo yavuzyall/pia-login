@@ -1,19 +1,15 @@
+import api from './axiosConfig';
 import { User } from "../modals/User";
 
 const API_URL = 'https://dummyjson.com/auth/login';
 
 async function login(username: string, password: string) {
-    const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-    });
-    const data = await response.json();
-    if (response.ok) {
-        localStorage.setItem('token', data.token);
-        return data;
-    } else {
-        throw new Error(data.message);
+    const response = await api.post('/login', { username, password });
+    if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        return response.data;
+    } else{
+        throw new Error('Login failed');
     }
 }
 
@@ -22,15 +18,9 @@ function logout() {
 }
 
 async function validateToken(token: string): Promise<User> {
-    const response = await fetch('https://dummyjson.com/auth/me', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
-    });
-    const data = await response.json();
-    if (response.ok) {
-        return data;
+    const response = await api.get('/me');
+    if (response.data) {
+        return response.data;
     } else {
         throw new Error('Token is invalid');
     }
