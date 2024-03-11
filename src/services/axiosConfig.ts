@@ -1,5 +1,6 @@
 import axios from "axios";
-import emitter from "../utils/eventEmitter";
+import { store } from '../app/store';
+import { setLoading } from "../features/loading/loadingSlice";
 
 const api = axios.create({
   baseURL: "https://dummyjson.com/auth",
@@ -11,24 +12,24 @@ api.interceptors.request.use((config) => {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
   
-  emitter.emit("loading", true);
+  store.dispatch(setLoading(true));
   return config;
 
 }, error => {
-    emitter.emit("loading", false);
+    store.dispatch(setLoading(false));
     return Promise.reject(error);
 });
 
 
 api.interceptors.response.use(response => {
-    emitter.emit("loading", false);
+    store.dispatch(setLoading(false));
     return response;
 }, error => {
     if (error.response.status === 401) {
         localStorage.removeItem('token');
         window.location.href = '/login';
     }
-    emitter.emit("loading", false);
+    store.dispatch(setLoading(false));
     return Promise.reject(error);
 });
 
