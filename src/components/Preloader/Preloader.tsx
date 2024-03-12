@@ -5,14 +5,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 
 const Preloader: React.FC = () => {
-  const isLoading = useSelector((state: RootState) => state.loading.isLoading);
+  const { isLoading, activeRequests } = useSelector(
+    (state: RootState) => state.loading
+  );
 
   if (!isLoading) return null;
 
   return (
     <div className="preloader z-50 fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-white">
       <img src={spinningDots} alt="Loading" className="w-20 h-20" />
-      <p className="text-1xl">Loading</p>
+      {/* <p className="text-1xl">Loading</p> */}
+      {Object.values(activeRequests).map((description, index) => (
+        <p key={index}>{description}</p>
+      ))}
     </div>
   );
 };

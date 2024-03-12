@@ -1,10 +1,8 @@
 import api from './axiosConfig';
 import { User } from "../modals/User";
 
-const API_URL = 'https://dummyjson.com/auth/login';
-
 async function login(username: string, password: string) {
-    const response = await api.post('/login', { username, password });
+    const response = await api.post('auth/login', { username, password });
     if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         return response.data;
@@ -18,7 +16,7 @@ function logout() {
 }
 
 async function validateToken(token: string): Promise<User> {
-    const response = await api.get('/me');
+    const response = await api.get('auth/me');
     if (response.data) {
         return response.data;
     } else {
