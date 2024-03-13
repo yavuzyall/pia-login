@@ -7,16 +7,9 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  console.log("request config:", config);
   const id = config.url || 'unknown';
-  let description = "Yükleniyor...";
-  if (config.url?.includes("products/category")) {
-    description = "Kategoriler listeleniyor...";
-  } else if (config.url?.includes("products/1")) {
-    description = "Ürün listeleniyor...";
-  } else if (config.url?.includes("products")) {
-    description = "Ürünler listeleniyor...";
-  }
+  const loadingMessage = config.headers?.loadingMessage;
+
   
   const token = localStorage.getItem("token");
   if (token) {
@@ -24,7 +17,12 @@ api.interceptors.request.use((config) => {
   }
   
   store.dispatch(setRequestCount(1));
-  store.dispatch(addActiveRequest({ id, description }));
+  
+  if (loadingMessage) {
+    store.dispatch(addActiveRequest({ id, description: loadingMessage }));
+  } else{
+    store.dispatch(addActiveRequest({ id, description: "Yükleniyor..." }));
+  }
   return config;
 
 }, error => {
@@ -36,7 +34,6 @@ api.interceptors.request.use((config) => {
 
 
 api.interceptors.response.use(response => {
-    console.log("response (response):", response);
     const id = response.config.url || 'unknown';
 
     store.dispatch(setRequestCount(-1));
