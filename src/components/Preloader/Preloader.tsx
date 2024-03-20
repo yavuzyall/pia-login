@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useLoading } from "../../contexts/LoadingContext";
 import spinningDots from "../../assets/svg/spinning-dots.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -12,7 +11,7 @@ const Preloader: React.FC = () => {
   if (!isLoading) return null;
 
   return (
-    <div className="preloader z-50 fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-white">
+    <div className="preloader z-50 fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-50 text-white">
       <img src={spinningDots} alt="Loading" className="w-20 h-20" />
       {/* <p className="text-1xl">Loading</p> */}
       {Object.values(activeRequests).map((description, index) => (
