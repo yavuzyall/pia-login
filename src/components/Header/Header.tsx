@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 import { fetchUser, reset } from "../../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ toggleSidebar }: { toggleSidebar: any }) => {
+const Header = ({ toggleSidebar, title, description }: { toggleSidebar: any, title: string, description: string }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHidden, setIsHidden] = useState(true);
@@ -67,9 +67,9 @@ const Header = ({ toggleSidebar }: { toggleSidebar: any }) => {
       </div>
       <hr />
       <div className="flex flex-col justify-start py-2">
-        <h1 className="text-xl font-medium">Home</h1>
+        <h1 className="text-xl font-medium">{title}</h1>
         <h2 className="font-normal text-gray-600 italic">
-          Sayfa açıklaması...
+          {description}
         </h2>
       </div>
       <hr className="shadow" />

@@ -5,6 +5,7 @@ import api from "../../services/axiosConfig";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   const response = await api.get<User>("/auth/me");
+  console.log(response.data);
   return response.data;
 });
 

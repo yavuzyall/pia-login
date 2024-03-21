@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { getCategories } from "../../services/categoryService";
 import { setCategories } from "../../features/categories/categoriesSlice";
-import Accordion from "../Accordion/Accordion";
 import IconBoxes from "../../shared-components/icons/IconBoxes";
 import IconHome from "../../shared-components/icons/IconHome";
 import IconUsers from "../../shared-components/icons/IconUsers";
@@ -62,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     });
   }, [dispatch, categories.length]);
   return (
-    <div className={`absolute bg-indigo-600 w-16 md:w-64 ${isOpen ? 'left-0' : '-left-64'} p-4 transition-all duration-300 ease-in-out min-h-screen`}>
+    <div className={`fixed bg-indigo-600 w-16 md:w-64 ${isOpen ? 'left-0' : '-left-64'} p-4 transition-all duration-300 ease-in-out min-h-screen`}>
       <div className="bg-white m-1 rounded p-1">
         <img src="https://img.logoipsum.com/262.svg" alt="Logo" />
       </div>

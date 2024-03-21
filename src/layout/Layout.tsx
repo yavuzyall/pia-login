@@ -4,8 +4,10 @@ import Header from "../components/Header/Header";
 
 interface LayoutProps {
   children: React.ReactNode;
+  title: string;
+  description: string;
 }
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
 
   return (
@@ -14,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div
         className={`flex-1 transition-all ${isSidebarOpen ? "ml-64" : "ml-0"}`}
       >
-        <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} title={title} description={description}/>
         <main className="p-4">{children}</main>
       </div>
     </div>
