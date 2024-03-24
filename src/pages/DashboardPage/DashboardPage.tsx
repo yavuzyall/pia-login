@@ -71,7 +71,7 @@ const DashboardPage: React.FC = () => {
               <hr className="border border-gray-200" />
             </>
           ))}
-          <div className="flex w-2/4 items-start mt-4 gap-4 py-1">
+          <div className="flex w-3/4 items-start mt-4 gap-4 py-1">
             <div className="flex flex-col gap-6">
               <div className="flex justify-between gap-12">
                 <div className="flex flex-col w-2/4">

@@ -87,7 +87,7 @@ const ProductsPage = () => {
         </div>
         {listProducts ? (
           <div>
-            <table className="min-w-full divide-y">
+            <table className="min-w-full max-w-full divide-y">
               <thead>
                 <tr>
                   <th
